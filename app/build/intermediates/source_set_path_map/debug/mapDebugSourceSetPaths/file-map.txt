@@ -1,0 +1,69 @@
+com.lura.app-animation-core-release-0 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/12036c7f35c9051fbad73c1ab6729b83/transformed/animation-core-release/res
+com.lura.app-graphics-path-1.0.1-1 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/14190cafe78c38395293daf9eb549470/transformed/graphics-path-1.0.1/res
+com.lura.app-hilt-navigation-compose-1.2.0-2 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/15f1c25825de6a6e417b0ad94eb55e8f/transformed/hilt-navigation-compose-1.2.0/res
+com.lura.app-ui-geometry-release-3 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/1607f270f583c7177142836b7006cfbc/transformed/ui-geometry-release/res
+com.lura.app-navigation-compose-2.5.1-4 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/170240619c374978431220976bb903b1/transformed/navigation-compose-2.5.1/res
+com.lura.app-ui-tooling-release-5 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/1724c199472a64e586729739c945b8db/transformed/ui-tooling-release/res
+com.lura.app-core-1.15.0-6 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/180329fef7bbb2bac447d244cea2a013/transformed/core-1.15.0/res
+com.lura.app-hilt-navigation-1.2.0-7 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/1a7437e78a78d946caad9fd1bb1ba005/transformed/hilt-navigation-1.2.0/res
+com.lura.app-fragment-1.5.1-8 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/1ad9601b5f74fec2382006c22d4096da/transformed/fragment-1.5.1/res
+com.lura.app-navigation-runtime-2.5.1-9 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/1ead8a3c3ffb66e0b1502c83e0562f0b/transformed/navigation-runtime-2.5.1/res
+com.lura.app-room-ktx-2.6.1-10 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/23ef31e7db32af9d23e23fdbcf5d7de9/transformed/room-ktx-2.6.1/res
+com.lura.app-material-ripple-release-11 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/25df0f0209a302c1f1cf1292826d156a/transformed/material-ripple-release/res
+com.lura.app-ui-tooling-data-release-12 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/2d207214a7b7e58618dc7b8b92043c02/transformed/ui-tooling-data-release/res
+com.lura.app-savedstate-ktx-1.2.1-13 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/3193a81804026cf1ded42be81afc8fdc/transformed/savedstate-ktx-1.2.1/res
+com.lura.app-lifecycle-runtime-ktx-release-14 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/3a0c727ceca406e72f920a3bed201dfe/transformed/lifecycle-runtime-ktx-release/res
+com.lura.app-navigation-common-2.5.1-15 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/4c6ed1efea328b8d6315ba0b6bbbc9b0/transformed/navigation-common-2.5.1/res
+com.lura.app-sqlite-2.4.0-16 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/4cd20606b633004022e74feef2e8c14e/transformed/sqlite-2.4.0/res
+com.lura.app-lifecycle-livedata-core-2.8.7-17 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/51d8e7212389edc20f60fdd81fb6f3a5/transformed/lifecycle-livedata-core-2.8.7/res
+com.lura.app-lifecycle-viewmodel-savedstate-2.8.7-18 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/5b93dda62de399bbbb8e73bc798e39da/transformed/lifecycle-viewmodel-savedstate-2.8.7/res
+com.lura.app-lifecycle-runtime-release-19 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/6451c961561825c2d0014ab42da39e58/transformed/lifecycle-runtime-release/res
+com.lura.app-customview-poolingcontainer-1.0.0-20 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/69df57fb8ee049a51e246d2f07c7034f/transformed/customview-poolingcontainer-1.0.0/res
+com.lura.app-ui-release-21 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/6c625e3940ace00ac4cd7b839c4d0446/transformed/ui-release/res
+com.lura.app-sqlite-framework-2.4.0-22 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/6caf03988c4764d1110eaf7e60414b23/transformed/sqlite-framework-2.4.0/res
+com.lura.app-ui-text-release-23 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/6e7dac8d843de81ad5ec53b2da779d8e/transformed/ui-text-release/res
+com.lura.app-lifecycle-viewmodel-ktx-2.8.7-24 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/7006214f0de475112f0a348a3ab99b57/transformed/lifecycle-viewmodel-ktx-2.8.7/res
+com.lura.app-startup-runtime-1.1.1-25 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/710cbd24309611ce28209bb238db1813/transformed/startup-runtime-1.1.1/res
+com.lura.app-navigation-common-ktx-2.5.1-26 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/78cba465172c1166878196dbed06584e/transformed/navigation-common-ktx-2.5.1/res
+com.lura.app-core-runtime-2.2.0-27 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/7d95d60769617338a7ecac260cda8d9a/transformed/core-runtime-2.2.0/res
+com.lura.app-savedstate-1.2.1-28 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/8a695bb59847b54dd439fce24d9a74c7/transformed/savedstate-1.2.1/res
+com.lura.app-runtime-release-29 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/8be39d08a59552903fc5e95167faec1e/transformed/runtime-release/res
+com.lura.app-material3-release-30 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/8e2d5d58f5b52b1c10efee3a78f04cfb/transformed/material3-release/res
+com.lura.app-ui-util-release-31 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/9222dca82c7b3c71fbd20e5768b49187/transformed/ui-util-release/res
+com.lura.app-runtime-saveable-release-32 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/92f0a5f66bdc39ee74baf2ff5bb1acd9/transformed/runtime-saveable-release/res
+com.lura.app-annotation-experimental-1.4.1-33 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/97599f85bf8266159e5c4a9c1df4a7aa/transformed/annotation-experimental-1.4.1/res
+com.lura.app-ui-unit-release-34 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/9ae1feb0f8cb5197ae77ba6c0e78e06a/transformed/ui-unit-release/res
+com.lura.app-coil-base-2.5.0-35 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/9f43c6db716aa226696906ec5b9ff884/transformed/coil-base-2.5.0/res
+com.lura.app-activity-1.9.3-36 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/9f7d0cdfebb4a6959a2f43e7206540db/transformed/activity-1.9.3/res
+com.lura.app-lifecycle-process-2.8.7-37 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/a1315684fc99e28b0e7a7487e402d0f4/transformed/lifecycle-process-2.8.7/res
+com.lura.app-emoji2-1.3.0-38 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/ad5c77c8d78ec9e5380e31851fb06678/transformed/emoji2-1.3.0/res
+com.lura.app-animation-release-39 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/ade1d68f44c4f48d3aa620eba72a2c80/transformed/animation-release/res
+com.lura.app-appcompat-resources-1.6.1-40 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/b94aea48326498299a8b36f3e7aaf30e/transformed/appcompat-resources-1.6.1/res
+com.lura.app-lifecycle-livedata-core-ktx-2.8.7-41 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/bac584b4ba42dbeda94d809299904831/transformed/lifecycle-livedata-core-ktx-2.8.7/res
+com.lura.app-foundation-release-42 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/bae2b286a8fb9b843a8a6206213bb86b/transformed/foundation-release/res
+com.lura.app-activity-ktx-1.9.3-43 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/bc6d748e397b9bebbe572afd0af23112/transformed/activity-ktx-1.9.3/res
+com.lura.app-lifecycle-viewmodel-compose-release-44 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/c15272a482c8381986ec6521ef46aa4d/transformed/lifecycle-viewmodel-compose-release/res
+com.lura.app-ui-graphics-release-45 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/c73231b6220e0177d6be95604e283ea2/transformed/ui-graphics-release/res
+com.lura.app-profileinstaller-1.3.1-46 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/ce076c37ffaea74beaa55276ef37c85c/transformed/profileinstaller-1.3.1/res
+com.lura.app-navigation-runtime-ktx-2.5.1-47 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/d2c64786da6d1bef80082b39f2073739/transformed/navigation-runtime-ktx-2.5.1/res
+com.lura.app-activity-compose-1.9.3-48 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/d9143bcd9ba22a6dd1fc56c1139431c6/transformed/activity-compose-1.9.3/res
+com.lura.app-foundation-layout-release-49 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/dc4bc6c11d15c5e7a0c84e2b23c1dc70/transformed/foundation-layout-release/res
+com.lura.app-material-release-50 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/ddc5ebedac1a0353f2167a5cc479649b/transformed/material-release/res
+com.lura.app-lifecycle-runtime-compose-release-51 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/dfa1a95e462472f7d0420ab70a0eb299/transformed/lifecycle-runtime-compose-release/res
+com.lura.app-ui-test-manifest-1.7.5-52 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/dfcff6ab9aec8d5c4e60aea848b7363e/transformed/ui-test-manifest-1.7.5/res
+com.lura.app-room-runtime-2.6.1-53 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/e5c7d1de757901387d31d574a44dbe96/transformed/room-runtime-2.6.1/res
+com.lura.app-material-icons-core-release-54 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/eb3363f84b93f05b5b9f5480a2f4d68d/transformed/material-icons-core-release/res
+com.lura.app-ui-tooling-preview-release-55 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/f3c1fbb5bb154f12544ea2f88c246a81/transformed/ui-tooling-preview-release/res
+com.lura.app-lifecycle-livedata-2.8.7-56 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/f9717f6445c71fbe85462c3dc058b5c4/transformed/lifecycle-livedata-2.8.7/res
+com.lura.app-material-icons-extended-release-57 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/fa66d2525bd009149c777887a4869869/transformed/material-icons-extended-release/res
+com.lura.app-core-ktx-1.15.0-58 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/fcd9038f078ec08da55a4fcea42b74bd/transformed/core-ktx-1.15.0/res
+com.lura.app-tracing-1.2.0-59 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/fe2c4dc507257aee1270ab9145fea8fe/transformed/tracing-1.2.0/res
+com.lura.app-lifecycle-viewmodel-release-60 /Users/simonpapaj/.gradle/caches/9.0-milestone-1/transforms/fe8312c32f5a56941054698fc3dc1588/transformed/lifecycle-viewmodel-release/res
+com.lura.app-pngs-61 /Users/simonpapaj/Documents/Livaro Dev/Lura/app/build/generated/res/pngs/debug
+com.lura.app-resValues-62 /Users/simonpapaj/Documents/Livaro Dev/Lura/app/build/generated/res/resValues/debug
+com.lura.app-updated_navigation_xml-63 /Users/simonpapaj/Documents/Livaro Dev/Lura/app/build/generated/updated_navigation_xml/debug
+com.lura.app-packageDebugResources-64 /Users/simonpapaj/Documents/Livaro Dev/Lura/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.lura.app-packageDebugResources-65 /Users/simonpapaj/Documents/Livaro Dev/Lura/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.lura.app-debug-66 /Users/simonpapaj/Documents/Livaro Dev/Lura/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.lura.app-debug-67 /Users/simonpapaj/Documents/Livaro Dev/Lura/app/src/debug/res
+com.lura.app-main-68 /Users/simonpapaj/Documents/Livaro Dev/Lura/app/src/main/res
