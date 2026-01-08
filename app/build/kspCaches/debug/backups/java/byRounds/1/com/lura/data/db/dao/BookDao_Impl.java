@@ -46,7 +46,7 @@ public final class BookDao_Impl implements BookDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR REPLACE INTO `books` (`id`,`title`,`author`,`filePath`,`coverImagePath`,`publisher`,`publicationDate`,`isbn`,`description`,`fileSize`,`currentPage`,`totalPages`,`currentChapter`,`progressPercentage`,`lastReadTimestamp`,`readingTimeMinutes`,`folderId`,`tags`,`isFavorite`,`readingStatus`,`coverUrl`,`progress`,`totalWords`,`importDate`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return "INSERT OR REPLACE INTO `books` (`id`,`title`,`author`,`filePath`,`coverImagePath`,`publisher`,`publicationDate`,`isbn`,`description`,`genre`,`language`,`fileSize`,`wordCount`,`estimatedReadingTimeMinutes`,`currentPage`,`totalPages`,`currentChapter`,`progressPercentage`,`lastReadTimestamp`,`lastReadDate`,`totalReadingTimeMinutes`,`averageWpmStandard`,`averageWpmPulse`,`timeSavedWithPulseMinutes`,`readingTimeMinutes`,`tags`,`isFavorite`,`isCurrentlyReading`,`isArchived`,`readingStatus`,`folderId`,`cloudStorageUrl`,`isCloudOnly`,`coverUrl`,`progress`,`totalWords`,`importDate`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -81,30 +81,58 @@ public final class BookDao_Impl implements BookDao {
         } else {
           statement.bindString(9, entity.getDescription());
         }
-        statement.bindLong(10, entity.getFileSize());
-        statement.bindLong(11, entity.getCurrentPage());
-        statement.bindLong(12, entity.getTotalPages());
-        statement.bindLong(13, entity.getCurrentChapter());
-        statement.bindDouble(14, entity.getProgressPercentage());
-        statement.bindLong(15, entity.getLastReadTimestamp());
-        statement.bindLong(16, entity.getReadingTimeMinutes());
-        if (entity.getFolderId() == null) {
-          statement.bindNull(17);
+        if (entity.getGenre() == null) {
+          statement.bindNull(10);
         } else {
-          statement.bindString(17, entity.getFolderId());
+          statement.bindString(10, entity.getGenre());
         }
-        statement.bindString(18, entity.getTags());
+        if (entity.getLanguage() == null) {
+          statement.bindNull(11);
+        } else {
+          statement.bindString(11, entity.getLanguage());
+        }
+        statement.bindLong(12, entity.getFileSize());
+        statement.bindLong(13, entity.getWordCount());
+        statement.bindLong(14, entity.getEstimatedReadingTimeMinutes());
+        statement.bindLong(15, entity.getCurrentPage());
+        statement.bindLong(16, entity.getTotalPages());
+        statement.bindLong(17, entity.getCurrentChapter());
+        statement.bindDouble(18, entity.getProgressPercentage());
+        statement.bindLong(19, entity.getLastReadTimestamp());
+        statement.bindLong(20, entity.getLastReadDate());
+        statement.bindLong(21, entity.getTotalReadingTimeMinutes());
+        statement.bindLong(22, entity.getAverageWpmStandard());
+        statement.bindLong(23, entity.getAverageWpmPulse());
+        statement.bindLong(24, entity.getTimeSavedWithPulseMinutes());
+        statement.bindLong(25, entity.getReadingTimeMinutes());
+        statement.bindString(26, entity.getTags());
         final int _tmp = entity.isFavorite() ? 1 : 0;
-        statement.bindLong(19, _tmp);
-        statement.bindString(20, entity.getReadingStatus());
-        if (entity.getCoverUrl() == null) {
-          statement.bindNull(21);
+        statement.bindLong(27, _tmp);
+        final int _tmp_1 = entity.isCurrentlyReading() ? 1 : 0;
+        statement.bindLong(28, _tmp_1);
+        final int _tmp_2 = entity.isArchived() ? 1 : 0;
+        statement.bindLong(29, _tmp_2);
+        statement.bindString(30, entity.getReadingStatus());
+        if (entity.getFolderId() == null) {
+          statement.bindNull(31);
         } else {
-          statement.bindString(21, entity.getCoverUrl());
+          statement.bindString(31, entity.getFolderId());
         }
-        statement.bindDouble(22, entity.getProgress());
-        statement.bindLong(23, entity.getTotalWords());
-        statement.bindLong(24, entity.getImportDate());
+        if (entity.getCloudStorageUrl() == null) {
+          statement.bindNull(32);
+        } else {
+          statement.bindString(32, entity.getCloudStorageUrl());
+        }
+        final int _tmp_3 = entity.isCloudOnly() ? 1 : 0;
+        statement.bindLong(33, _tmp_3);
+        if (entity.getCoverUrl() == null) {
+          statement.bindNull(34);
+        } else {
+          statement.bindString(34, entity.getCoverUrl());
+        }
+        statement.bindDouble(35, entity.getProgress());
+        statement.bindLong(36, entity.getTotalWords());
+        statement.bindLong(37, entity.getImportDate());
       }
     };
     this.__deletionAdapterOfBookEntity = new EntityDeletionOrUpdateAdapter<BookEntity>(__db) {
@@ -213,17 +241,30 @@ public final class BookDao_Impl implements BookDao {
           final int _cursorIndexOfPublicationDate = CursorUtil.getColumnIndexOrThrow(_cursor, "publicationDate");
           final int _cursorIndexOfIsbn = CursorUtil.getColumnIndexOrThrow(_cursor, "isbn");
           final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
+          final int _cursorIndexOfGenre = CursorUtil.getColumnIndexOrThrow(_cursor, "genre");
+          final int _cursorIndexOfLanguage = CursorUtil.getColumnIndexOrThrow(_cursor, "language");
           final int _cursorIndexOfFileSize = CursorUtil.getColumnIndexOrThrow(_cursor, "fileSize");
+          final int _cursorIndexOfWordCount = CursorUtil.getColumnIndexOrThrow(_cursor, "wordCount");
+          final int _cursorIndexOfEstimatedReadingTimeMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "estimatedReadingTimeMinutes");
           final int _cursorIndexOfCurrentPage = CursorUtil.getColumnIndexOrThrow(_cursor, "currentPage");
           final int _cursorIndexOfTotalPages = CursorUtil.getColumnIndexOrThrow(_cursor, "totalPages");
           final int _cursorIndexOfCurrentChapter = CursorUtil.getColumnIndexOrThrow(_cursor, "currentChapter");
           final int _cursorIndexOfProgressPercentage = CursorUtil.getColumnIndexOrThrow(_cursor, "progressPercentage");
           final int _cursorIndexOfLastReadTimestamp = CursorUtil.getColumnIndexOrThrow(_cursor, "lastReadTimestamp");
+          final int _cursorIndexOfLastReadDate = CursorUtil.getColumnIndexOrThrow(_cursor, "lastReadDate");
+          final int _cursorIndexOfTotalReadingTimeMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "totalReadingTimeMinutes");
+          final int _cursorIndexOfAverageWpmStandard = CursorUtil.getColumnIndexOrThrow(_cursor, "averageWpmStandard");
+          final int _cursorIndexOfAverageWpmPulse = CursorUtil.getColumnIndexOrThrow(_cursor, "averageWpmPulse");
+          final int _cursorIndexOfTimeSavedWithPulseMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "timeSavedWithPulseMinutes");
           final int _cursorIndexOfReadingTimeMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "readingTimeMinutes");
-          final int _cursorIndexOfFolderId = CursorUtil.getColumnIndexOrThrow(_cursor, "folderId");
           final int _cursorIndexOfTags = CursorUtil.getColumnIndexOrThrow(_cursor, "tags");
           final int _cursorIndexOfIsFavorite = CursorUtil.getColumnIndexOrThrow(_cursor, "isFavorite");
+          final int _cursorIndexOfIsCurrentlyReading = CursorUtil.getColumnIndexOrThrow(_cursor, "isCurrentlyReading");
+          final int _cursorIndexOfIsArchived = CursorUtil.getColumnIndexOrThrow(_cursor, "isArchived");
           final int _cursorIndexOfReadingStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "readingStatus");
+          final int _cursorIndexOfFolderId = CursorUtil.getColumnIndexOrThrow(_cursor, "folderId");
+          final int _cursorIndexOfCloudStorageUrl = CursorUtil.getColumnIndexOrThrow(_cursor, "cloudStorageUrl");
+          final int _cursorIndexOfIsCloudOnly = CursorUtil.getColumnIndexOrThrow(_cursor, "isCloudOnly");
           final int _cursorIndexOfCoverUrl = CursorUtil.getColumnIndexOrThrow(_cursor, "coverUrl");
           final int _cursorIndexOfProgress = CursorUtil.getColumnIndexOrThrow(_cursor, "progress");
           final int _cursorIndexOfTotalWords = CursorUtil.getColumnIndexOrThrow(_cursor, "totalWords");
@@ -269,8 +310,24 @@ public final class BookDao_Impl implements BookDao {
             } else {
               _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
             }
+            final String _tmpGenre;
+            if (_cursor.isNull(_cursorIndexOfGenre)) {
+              _tmpGenre = null;
+            } else {
+              _tmpGenre = _cursor.getString(_cursorIndexOfGenre);
+            }
+            final String _tmpLanguage;
+            if (_cursor.isNull(_cursorIndexOfLanguage)) {
+              _tmpLanguage = null;
+            } else {
+              _tmpLanguage = _cursor.getString(_cursorIndexOfLanguage);
+            }
             final long _tmpFileSize;
             _tmpFileSize = _cursor.getLong(_cursorIndexOfFileSize);
+            final int _tmpWordCount;
+            _tmpWordCount = _cursor.getInt(_cursorIndexOfWordCount);
+            final int _tmpEstimatedReadingTimeMinutes;
+            _tmpEstimatedReadingTimeMinutes = _cursor.getInt(_cursorIndexOfEstimatedReadingTimeMinutes);
             final int _tmpCurrentPage;
             _tmpCurrentPage = _cursor.getInt(_cursorIndexOfCurrentPage);
             final int _tmpTotalPages;
@@ -281,22 +338,50 @@ public final class BookDao_Impl implements BookDao {
             _tmpProgressPercentage = _cursor.getFloat(_cursorIndexOfProgressPercentage);
             final long _tmpLastReadTimestamp;
             _tmpLastReadTimestamp = _cursor.getLong(_cursorIndexOfLastReadTimestamp);
+            final long _tmpLastReadDate;
+            _tmpLastReadDate = _cursor.getLong(_cursorIndexOfLastReadDate);
+            final int _tmpTotalReadingTimeMinutes;
+            _tmpTotalReadingTimeMinutes = _cursor.getInt(_cursorIndexOfTotalReadingTimeMinutes);
+            final int _tmpAverageWpmStandard;
+            _tmpAverageWpmStandard = _cursor.getInt(_cursorIndexOfAverageWpmStandard);
+            final int _tmpAverageWpmPulse;
+            _tmpAverageWpmPulse = _cursor.getInt(_cursorIndexOfAverageWpmPulse);
+            final int _tmpTimeSavedWithPulseMinutes;
+            _tmpTimeSavedWithPulseMinutes = _cursor.getInt(_cursorIndexOfTimeSavedWithPulseMinutes);
             final int _tmpReadingTimeMinutes;
             _tmpReadingTimeMinutes = _cursor.getInt(_cursorIndexOfReadingTimeMinutes);
-            final String _tmpFolderId;
-            if (_cursor.isNull(_cursorIndexOfFolderId)) {
-              _tmpFolderId = null;
-            } else {
-              _tmpFolderId = _cursor.getString(_cursorIndexOfFolderId);
-            }
             final String _tmpTags;
             _tmpTags = _cursor.getString(_cursorIndexOfTags);
             final boolean _tmpIsFavorite;
             final int _tmp;
             _tmp = _cursor.getInt(_cursorIndexOfIsFavorite);
             _tmpIsFavorite = _tmp != 0;
+            final boolean _tmpIsCurrentlyReading;
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfIsCurrentlyReading);
+            _tmpIsCurrentlyReading = _tmp_1 != 0;
+            final boolean _tmpIsArchived;
+            final int _tmp_2;
+            _tmp_2 = _cursor.getInt(_cursorIndexOfIsArchived);
+            _tmpIsArchived = _tmp_2 != 0;
             final String _tmpReadingStatus;
             _tmpReadingStatus = _cursor.getString(_cursorIndexOfReadingStatus);
+            final String _tmpFolderId;
+            if (_cursor.isNull(_cursorIndexOfFolderId)) {
+              _tmpFolderId = null;
+            } else {
+              _tmpFolderId = _cursor.getString(_cursorIndexOfFolderId);
+            }
+            final String _tmpCloudStorageUrl;
+            if (_cursor.isNull(_cursorIndexOfCloudStorageUrl)) {
+              _tmpCloudStorageUrl = null;
+            } else {
+              _tmpCloudStorageUrl = _cursor.getString(_cursorIndexOfCloudStorageUrl);
+            }
+            final boolean _tmpIsCloudOnly;
+            final int _tmp_3;
+            _tmp_3 = _cursor.getInt(_cursorIndexOfIsCloudOnly);
+            _tmpIsCloudOnly = _tmp_3 != 0;
             final String _tmpCoverUrl;
             if (_cursor.isNull(_cursorIndexOfCoverUrl)) {
               _tmpCoverUrl = null;
@@ -309,7 +394,7 @@ public final class BookDao_Impl implements BookDao {
             _tmpTotalWords = _cursor.getInt(_cursorIndexOfTotalWords);
             final long _tmpImportDate;
             _tmpImportDate = _cursor.getLong(_cursorIndexOfImportDate);
-            _item = new BookEntity(_tmpId,_tmpTitle,_tmpAuthor,_tmpFilePath,_tmpCoverImagePath,_tmpPublisher,_tmpPublicationDate,_tmpIsbn,_tmpDescription,_tmpFileSize,_tmpCurrentPage,_tmpTotalPages,_tmpCurrentChapter,_tmpProgressPercentage,_tmpLastReadTimestamp,_tmpReadingTimeMinutes,_tmpFolderId,_tmpTags,_tmpIsFavorite,_tmpReadingStatus,_tmpCoverUrl,_tmpProgress,_tmpTotalWords,_tmpImportDate);
+            _item = new BookEntity(_tmpId,_tmpTitle,_tmpAuthor,_tmpFilePath,_tmpCoverImagePath,_tmpPublisher,_tmpPublicationDate,_tmpIsbn,_tmpDescription,_tmpGenre,_tmpLanguage,_tmpFileSize,_tmpWordCount,_tmpEstimatedReadingTimeMinutes,_tmpCurrentPage,_tmpTotalPages,_tmpCurrentChapter,_tmpProgressPercentage,_tmpLastReadTimestamp,_tmpLastReadDate,_tmpTotalReadingTimeMinutes,_tmpAverageWpmStandard,_tmpAverageWpmPulse,_tmpTimeSavedWithPulseMinutes,_tmpReadingTimeMinutes,_tmpTags,_tmpIsFavorite,_tmpIsCurrentlyReading,_tmpIsArchived,_tmpReadingStatus,_tmpFolderId,_tmpCloudStorageUrl,_tmpIsCloudOnly,_tmpCoverUrl,_tmpProgress,_tmpTotalWords,_tmpImportDate);
             _result.add(_item);
           }
           return _result;
@@ -347,17 +432,30 @@ public final class BookDao_Impl implements BookDao {
           final int _cursorIndexOfPublicationDate = CursorUtil.getColumnIndexOrThrow(_cursor, "publicationDate");
           final int _cursorIndexOfIsbn = CursorUtil.getColumnIndexOrThrow(_cursor, "isbn");
           final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
+          final int _cursorIndexOfGenre = CursorUtil.getColumnIndexOrThrow(_cursor, "genre");
+          final int _cursorIndexOfLanguage = CursorUtil.getColumnIndexOrThrow(_cursor, "language");
           final int _cursorIndexOfFileSize = CursorUtil.getColumnIndexOrThrow(_cursor, "fileSize");
+          final int _cursorIndexOfWordCount = CursorUtil.getColumnIndexOrThrow(_cursor, "wordCount");
+          final int _cursorIndexOfEstimatedReadingTimeMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "estimatedReadingTimeMinutes");
           final int _cursorIndexOfCurrentPage = CursorUtil.getColumnIndexOrThrow(_cursor, "currentPage");
           final int _cursorIndexOfTotalPages = CursorUtil.getColumnIndexOrThrow(_cursor, "totalPages");
           final int _cursorIndexOfCurrentChapter = CursorUtil.getColumnIndexOrThrow(_cursor, "currentChapter");
           final int _cursorIndexOfProgressPercentage = CursorUtil.getColumnIndexOrThrow(_cursor, "progressPercentage");
           final int _cursorIndexOfLastReadTimestamp = CursorUtil.getColumnIndexOrThrow(_cursor, "lastReadTimestamp");
+          final int _cursorIndexOfLastReadDate = CursorUtil.getColumnIndexOrThrow(_cursor, "lastReadDate");
+          final int _cursorIndexOfTotalReadingTimeMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "totalReadingTimeMinutes");
+          final int _cursorIndexOfAverageWpmStandard = CursorUtil.getColumnIndexOrThrow(_cursor, "averageWpmStandard");
+          final int _cursorIndexOfAverageWpmPulse = CursorUtil.getColumnIndexOrThrow(_cursor, "averageWpmPulse");
+          final int _cursorIndexOfTimeSavedWithPulseMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "timeSavedWithPulseMinutes");
           final int _cursorIndexOfReadingTimeMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "readingTimeMinutes");
-          final int _cursorIndexOfFolderId = CursorUtil.getColumnIndexOrThrow(_cursor, "folderId");
           final int _cursorIndexOfTags = CursorUtil.getColumnIndexOrThrow(_cursor, "tags");
           final int _cursorIndexOfIsFavorite = CursorUtil.getColumnIndexOrThrow(_cursor, "isFavorite");
+          final int _cursorIndexOfIsCurrentlyReading = CursorUtil.getColumnIndexOrThrow(_cursor, "isCurrentlyReading");
+          final int _cursorIndexOfIsArchived = CursorUtil.getColumnIndexOrThrow(_cursor, "isArchived");
           final int _cursorIndexOfReadingStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "readingStatus");
+          final int _cursorIndexOfFolderId = CursorUtil.getColumnIndexOrThrow(_cursor, "folderId");
+          final int _cursorIndexOfCloudStorageUrl = CursorUtil.getColumnIndexOrThrow(_cursor, "cloudStorageUrl");
+          final int _cursorIndexOfIsCloudOnly = CursorUtil.getColumnIndexOrThrow(_cursor, "isCloudOnly");
           final int _cursorIndexOfCoverUrl = CursorUtil.getColumnIndexOrThrow(_cursor, "coverUrl");
           final int _cursorIndexOfProgress = CursorUtil.getColumnIndexOrThrow(_cursor, "progress");
           final int _cursorIndexOfTotalWords = CursorUtil.getColumnIndexOrThrow(_cursor, "totalWords");
@@ -402,8 +500,24 @@ public final class BookDao_Impl implements BookDao {
             } else {
               _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
             }
+            final String _tmpGenre;
+            if (_cursor.isNull(_cursorIndexOfGenre)) {
+              _tmpGenre = null;
+            } else {
+              _tmpGenre = _cursor.getString(_cursorIndexOfGenre);
+            }
+            final String _tmpLanguage;
+            if (_cursor.isNull(_cursorIndexOfLanguage)) {
+              _tmpLanguage = null;
+            } else {
+              _tmpLanguage = _cursor.getString(_cursorIndexOfLanguage);
+            }
             final long _tmpFileSize;
             _tmpFileSize = _cursor.getLong(_cursorIndexOfFileSize);
+            final int _tmpWordCount;
+            _tmpWordCount = _cursor.getInt(_cursorIndexOfWordCount);
+            final int _tmpEstimatedReadingTimeMinutes;
+            _tmpEstimatedReadingTimeMinutes = _cursor.getInt(_cursorIndexOfEstimatedReadingTimeMinutes);
             final int _tmpCurrentPage;
             _tmpCurrentPage = _cursor.getInt(_cursorIndexOfCurrentPage);
             final int _tmpTotalPages;
@@ -414,22 +528,50 @@ public final class BookDao_Impl implements BookDao {
             _tmpProgressPercentage = _cursor.getFloat(_cursorIndexOfProgressPercentage);
             final long _tmpLastReadTimestamp;
             _tmpLastReadTimestamp = _cursor.getLong(_cursorIndexOfLastReadTimestamp);
+            final long _tmpLastReadDate;
+            _tmpLastReadDate = _cursor.getLong(_cursorIndexOfLastReadDate);
+            final int _tmpTotalReadingTimeMinutes;
+            _tmpTotalReadingTimeMinutes = _cursor.getInt(_cursorIndexOfTotalReadingTimeMinutes);
+            final int _tmpAverageWpmStandard;
+            _tmpAverageWpmStandard = _cursor.getInt(_cursorIndexOfAverageWpmStandard);
+            final int _tmpAverageWpmPulse;
+            _tmpAverageWpmPulse = _cursor.getInt(_cursorIndexOfAverageWpmPulse);
+            final int _tmpTimeSavedWithPulseMinutes;
+            _tmpTimeSavedWithPulseMinutes = _cursor.getInt(_cursorIndexOfTimeSavedWithPulseMinutes);
             final int _tmpReadingTimeMinutes;
             _tmpReadingTimeMinutes = _cursor.getInt(_cursorIndexOfReadingTimeMinutes);
-            final String _tmpFolderId;
-            if (_cursor.isNull(_cursorIndexOfFolderId)) {
-              _tmpFolderId = null;
-            } else {
-              _tmpFolderId = _cursor.getString(_cursorIndexOfFolderId);
-            }
             final String _tmpTags;
             _tmpTags = _cursor.getString(_cursorIndexOfTags);
             final boolean _tmpIsFavorite;
             final int _tmp;
             _tmp = _cursor.getInt(_cursorIndexOfIsFavorite);
             _tmpIsFavorite = _tmp != 0;
+            final boolean _tmpIsCurrentlyReading;
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfIsCurrentlyReading);
+            _tmpIsCurrentlyReading = _tmp_1 != 0;
+            final boolean _tmpIsArchived;
+            final int _tmp_2;
+            _tmp_2 = _cursor.getInt(_cursorIndexOfIsArchived);
+            _tmpIsArchived = _tmp_2 != 0;
             final String _tmpReadingStatus;
             _tmpReadingStatus = _cursor.getString(_cursorIndexOfReadingStatus);
+            final String _tmpFolderId;
+            if (_cursor.isNull(_cursorIndexOfFolderId)) {
+              _tmpFolderId = null;
+            } else {
+              _tmpFolderId = _cursor.getString(_cursorIndexOfFolderId);
+            }
+            final String _tmpCloudStorageUrl;
+            if (_cursor.isNull(_cursorIndexOfCloudStorageUrl)) {
+              _tmpCloudStorageUrl = null;
+            } else {
+              _tmpCloudStorageUrl = _cursor.getString(_cursorIndexOfCloudStorageUrl);
+            }
+            final boolean _tmpIsCloudOnly;
+            final int _tmp_3;
+            _tmp_3 = _cursor.getInt(_cursorIndexOfIsCloudOnly);
+            _tmpIsCloudOnly = _tmp_3 != 0;
             final String _tmpCoverUrl;
             if (_cursor.isNull(_cursorIndexOfCoverUrl)) {
               _tmpCoverUrl = null;
@@ -442,7 +584,7 @@ public final class BookDao_Impl implements BookDao {
             _tmpTotalWords = _cursor.getInt(_cursorIndexOfTotalWords);
             final long _tmpImportDate;
             _tmpImportDate = _cursor.getLong(_cursorIndexOfImportDate);
-            _result = new BookEntity(_tmpId,_tmpTitle,_tmpAuthor,_tmpFilePath,_tmpCoverImagePath,_tmpPublisher,_tmpPublicationDate,_tmpIsbn,_tmpDescription,_tmpFileSize,_tmpCurrentPage,_tmpTotalPages,_tmpCurrentChapter,_tmpProgressPercentage,_tmpLastReadTimestamp,_tmpReadingTimeMinutes,_tmpFolderId,_tmpTags,_tmpIsFavorite,_tmpReadingStatus,_tmpCoverUrl,_tmpProgress,_tmpTotalWords,_tmpImportDate);
+            _result = new BookEntity(_tmpId,_tmpTitle,_tmpAuthor,_tmpFilePath,_tmpCoverImagePath,_tmpPublisher,_tmpPublicationDate,_tmpIsbn,_tmpDescription,_tmpGenre,_tmpLanguage,_tmpFileSize,_tmpWordCount,_tmpEstimatedReadingTimeMinutes,_tmpCurrentPage,_tmpTotalPages,_tmpCurrentChapter,_tmpProgressPercentage,_tmpLastReadTimestamp,_tmpLastReadDate,_tmpTotalReadingTimeMinutes,_tmpAverageWpmStandard,_tmpAverageWpmPulse,_tmpTimeSavedWithPulseMinutes,_tmpReadingTimeMinutes,_tmpTags,_tmpIsFavorite,_tmpIsCurrentlyReading,_tmpIsArchived,_tmpReadingStatus,_tmpFolderId,_tmpCloudStorageUrl,_tmpIsCloudOnly,_tmpCoverUrl,_tmpProgress,_tmpTotalWords,_tmpImportDate);
           } else {
             _result = null;
           }

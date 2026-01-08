@@ -41,14 +41,14 @@ public final class AppDatabase_Impl extends AppDatabase {
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(3) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(4) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS `books` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `author` TEXT NOT NULL, `filePath` TEXT NOT NULL, `coverImagePath` TEXT, `publisher` TEXT, `publicationDate` TEXT, `isbn` TEXT, `description` TEXT, `fileSize` INTEGER NOT NULL, `currentPage` INTEGER NOT NULL, `totalPages` INTEGER NOT NULL, `currentChapter` INTEGER NOT NULL, `progressPercentage` REAL NOT NULL, `lastReadTimestamp` INTEGER NOT NULL, `readingTimeMinutes` INTEGER NOT NULL, `folderId` TEXT, `tags` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, `readingStatus` TEXT NOT NULL, `coverUrl` TEXT, `progress` REAL NOT NULL, `totalWords` INTEGER NOT NULL, `importDate` INTEGER NOT NULL, PRIMARY KEY(`id`))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `books` (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `author` TEXT NOT NULL, `filePath` TEXT NOT NULL, `coverImagePath` TEXT, `publisher` TEXT, `publicationDate` TEXT, `isbn` TEXT, `description` TEXT, `genre` TEXT, `language` TEXT, `fileSize` INTEGER NOT NULL, `wordCount` INTEGER NOT NULL, `estimatedReadingTimeMinutes` INTEGER NOT NULL, `currentPage` INTEGER NOT NULL, `totalPages` INTEGER NOT NULL, `currentChapter` INTEGER NOT NULL, `progressPercentage` REAL NOT NULL, `lastReadTimestamp` INTEGER NOT NULL, `lastReadDate` INTEGER NOT NULL, `totalReadingTimeMinutes` INTEGER NOT NULL, `averageWpmStandard` INTEGER NOT NULL, `averageWpmPulse` INTEGER NOT NULL, `timeSavedWithPulseMinutes` INTEGER NOT NULL, `readingTimeMinutes` INTEGER NOT NULL, `tags` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, `isCurrentlyReading` INTEGER NOT NULL, `isArchived` INTEGER NOT NULL, `readingStatus` TEXT NOT NULL, `folderId` TEXT, `cloudStorageUrl` TEXT, `isCloudOnly` INTEGER NOT NULL, `coverUrl` TEXT, `progress` REAL NOT NULL, `totalWords` INTEGER NOT NULL, `importDate` INTEGER NOT NULL, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS `highlights` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bookId` TEXT NOT NULL, `chapterIndex` INTEGER NOT NULL, `elementIndex` INTEGER NOT NULL, `startIndex` INTEGER NOT NULL, `endIndex` INTEGER NOT NULL, `color` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `folders` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `isDefault` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '83cf1c349e790759702e35a15ba0708e')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e71307491e0d0898252b40d2d5e1df58')");
       }
 
       @Override
@@ -99,7 +99,7 @@ public final class AppDatabase_Impl extends AppDatabase {
       @NonNull
       public RoomOpenHelper.ValidationResult onValidateSchema(
           @NonNull final SupportSQLiteDatabase db) {
-        final HashMap<String, TableInfo.Column> _columnsBooks = new HashMap<String, TableInfo.Column>(24);
+        final HashMap<String, TableInfo.Column> _columnsBooks = new HashMap<String, TableInfo.Column>(37);
         _columnsBooks.put("id", new TableInfo.Column("id", "TEXT", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("title", new TableInfo.Column("title", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("author", new TableInfo.Column("author", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
@@ -109,17 +109,30 @@ public final class AppDatabase_Impl extends AppDatabase {
         _columnsBooks.put("publicationDate", new TableInfo.Column("publicationDate", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("isbn", new TableInfo.Column("isbn", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("description", new TableInfo.Column("description", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("genre", new TableInfo.Column("genre", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("language", new TableInfo.Column("language", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("fileSize", new TableInfo.Column("fileSize", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("wordCount", new TableInfo.Column("wordCount", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("estimatedReadingTimeMinutes", new TableInfo.Column("estimatedReadingTimeMinutes", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("currentPage", new TableInfo.Column("currentPage", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("totalPages", new TableInfo.Column("totalPages", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("currentChapter", new TableInfo.Column("currentChapter", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("progressPercentage", new TableInfo.Column("progressPercentage", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("lastReadTimestamp", new TableInfo.Column("lastReadTimestamp", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("lastReadDate", new TableInfo.Column("lastReadDate", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("totalReadingTimeMinutes", new TableInfo.Column("totalReadingTimeMinutes", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("averageWpmStandard", new TableInfo.Column("averageWpmStandard", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("averageWpmPulse", new TableInfo.Column("averageWpmPulse", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("timeSavedWithPulseMinutes", new TableInfo.Column("timeSavedWithPulseMinutes", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("readingTimeMinutes", new TableInfo.Column("readingTimeMinutes", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsBooks.put("folderId", new TableInfo.Column("folderId", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("tags", new TableInfo.Column("tags", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("isFavorite", new TableInfo.Column("isFavorite", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("isCurrentlyReading", new TableInfo.Column("isCurrentlyReading", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("isArchived", new TableInfo.Column("isArchived", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("readingStatus", new TableInfo.Column("readingStatus", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("folderId", new TableInfo.Column("folderId", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("cloudStorageUrl", new TableInfo.Column("cloudStorageUrl", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsBooks.put("isCloudOnly", new TableInfo.Column("isCloudOnly", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("coverUrl", new TableInfo.Column("coverUrl", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("progress", new TableInfo.Column("progress", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsBooks.put("totalWords", new TableInfo.Column("totalWords", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
@@ -167,7 +180,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "83cf1c349e790759702e35a15ba0708e", "a44c9f030875bf298f90d9f38654d884");
+    }, "e71307491e0d0898252b40d2d5e1df58", "6dc043a68307c58ee5ac5eb537e89806");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

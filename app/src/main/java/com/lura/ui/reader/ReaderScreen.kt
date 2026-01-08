@@ -153,9 +153,9 @@ fun ReaderScreen(
     val listState = rememberLazyListState()
 
     // Keep screen on while reading
-    val view = LocalView.current
+    val screenView = LocalView.current
     DisposableEffect(Unit) {
-        val window = view.context.findActivity()?.window
+        val window = screenView.context.findActivity()?.window
         window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         onDispose {
             window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)

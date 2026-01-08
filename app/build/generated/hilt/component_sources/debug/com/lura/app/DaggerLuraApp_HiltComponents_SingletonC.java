@@ -408,15 +408,15 @@ public final class DaggerLuraApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_lura_ui_library_LibraryViewModel = "com.lura.ui.library.LibraryViewModel";
-
       static String com_lura_ui_reader_ReaderViewModel = "com.lura.ui.reader.ReaderViewModel";
 
-      @KeepFieldType
-      LibraryViewModel com_lura_ui_library_LibraryViewModel2;
+      static String com_lura_ui_library_LibraryViewModel = "com.lura.ui.library.LibraryViewModel";
 
       @KeepFieldType
       ReaderViewModel com_lura_ui_reader_ReaderViewModel2;
+
+      @KeepFieldType
+      LibraryViewModel com_lura_ui_library_LibraryViewModel2;
     }
   }
 
