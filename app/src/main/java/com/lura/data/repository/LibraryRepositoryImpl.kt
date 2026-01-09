@@ -7,7 +7,9 @@ import com.lura.data.db.entity.Highlight
 import com.lura.domain.model.Book
 import com.lura.domain.repository.LibraryRepository
 import com.lura.domain.engine.ReaderElement
+import com.lura.data.mapper.toDomain
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -16,7 +18,8 @@ class LibraryRepositoryImpl @Inject constructor(
     private val bookDao: BookDao,
     private val highlightDao: HighlightDao,
     @ApplicationContext private val context: android.content.Context,
-    private val epubParser: com.lura.domain.engine.EpubParser
+    private val epubParser: com.lura.domain.engine.EpubParser,
+    private val coverExtractor: com.lura.data.engine.CoverExtractor
 ) : LibraryRepository {
 
     override fun getLibraryBooks(): Flow<List<Book>> {
@@ -55,18 +58,22 @@ class LibraryRepositoryImpl @Inject constructor(
                 .sumOf { it.content.split("\\s+".toRegex()).size }
         }
         
+        // Extract cover image
+        val coverImagePath = coverExtractor.extractCover(destFile.absolutePath, bookId)
+        
         val newBookEntity = BookEntity(
             id = bookId,
             title = content.title.ifEmpty { "Imported Book" },
             author = content.author.ifEmpty { "Unknown Author" },
-            coverUrl = null,
             filePath = destFile.absolutePath,
-            progress = 0f,
+            coverImagePath = coverImagePath,
+            wordCount = totalWordCount,
             totalWords = totalWordCount,
+            progressPercentage = 0f,
+            progress = 0f,
             importDate = System.currentTimeMillis()
         )
         
-        bookDao.insertBook(newBookEntity)
         bookDao.insertBook(newBookEntity)
         return newBookEntity.toDomain()
     }
@@ -98,14 +105,19 @@ class LibraryRepositoryImpl @Inject constructor(
                 .sumOf { it.content.split("\\s+".toRegex()).size }
         }
         
+        // Extract cover image
+        val coverImagePath = coverExtractor.extractCover(destFile.absolutePath, bookId)
+        
         val newBookEntity = BookEntity(
             id = bookId,
             title = content.title.ifEmpty { "Debug Book" },
             author = content.author.ifEmpty { "Debug Author" },
-            coverUrl = null,
             filePath = destFile.absolutePath,
-            progress = 0f,
+            coverImagePath = coverImagePath,
+            wordCount = totalWordCount,
             totalWords = totalWordCount,
+            progressPercentage = 0f,
+            progress = 0f,
             importDate = System.currentTimeMillis()
         )
         
@@ -120,13 +132,35 @@ class LibraryRepositoryImpl @Inject constructor(
     override suspend fun deleteBook(bookId: String) {
         val book = bookDao.getBookById(bookId)
         if (book != null) {
-            // Delete file
-            val file = java.io.File(book.filePath)
-            if (file.exists()) {
-                file.delete()
-            }
-            // Delete from DB
             bookDao.deleteBook(book)
+        }
+    }
+
+    /**
+     * Extract covers for all books that don't have one yet.
+     */
+    suspend fun extractMissingCovers() {
+        try {
+            android.util.Log.d("LibraryRepository", "Starting cover extraction")
+            val books = bookDao.getAllBooks().first()
+            val booksWithoutCovers = books.filter { it.coverImagePath == null }
+            
+            android.util.Log.d("LibraryRepository", "Found ${booksWithoutCovers.size} books without covers")
+            
+            booksWithoutCovers.forEach { bookEntity ->
+                try {
+                    val coverPath = coverExtractor.extractCover(bookEntity.filePath, bookEntity.id)
+                    if (coverPath != null) {
+                        val updatedEntity = bookEntity.copy(coverImagePath = coverPath)
+                        bookDao.insertBook(updatedEntity)
+                        android.util.Log.d("LibraryRepository", "Extracted cover for: ${bookEntity.title}")
+                    }
+                } catch (e: Exception) {
+                    android.util.Log.e("LibraryRepository", "Error extracting cover", e)
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("LibraryRepository", "Error in extractMissingCovers", e)
         }
     }
 
@@ -159,19 +193,6 @@ class LibraryRepositoryImpl @Inject constructor(
             e.printStackTrace()
             null
         }
-    }
-
-    private fun BookEntity.toDomain(): Book {
-        return Book(
-            id = id,
-            title = title,
-            author = author,
-            coverUrl = coverUrl,
-            filePath = filePath,
-            progress = progress,
-            totalWords = totalWords,
-            importDate = importDate
-        )
     }
 
     override fun getHighlights(bookId: String, chapterIndex: Int): Flow<List<Highlight>> {

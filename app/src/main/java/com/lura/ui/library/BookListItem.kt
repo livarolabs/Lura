@@ -61,7 +61,10 @@ fun BookListItem(
             ) {
                 if (book.coverImagePath != null) {
                     AsyncImage(
-                        model = book.coverImagePath,
+                        model = coil.request.ImageRequest.Builder(androidx.compose.ui.platform.LocalContext.current)
+                            .data(java.io.File(book.coverImagePath))
+                            .crossfade(true)
+                            .build(),
                         contentDescription = "Cover of ${book.title}",
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop

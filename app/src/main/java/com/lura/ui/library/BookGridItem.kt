@@ -59,20 +59,20 @@ fun BookGridItem(
             ) {
                 if (book.coverImagePath != null) {
                     AsyncImage(
-                        model = book.coverImagePath,
+                        model = coil.request.ImageRequest.Builder(androidx.compose.ui.platform.LocalContext.current)
+                            .data(java.io.File(book.coverImagePath))
+                            .crossfade(true)
+                            .build(),
                         contentDescription = "Cover of ${book.title}",
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
                 } else {
-                    // Fallback cover
+                    // Fallback placeholder
                     Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(LuraIndigo.copy(alpha = 0.2f))
-                            .padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.padding(16.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Default.Book,

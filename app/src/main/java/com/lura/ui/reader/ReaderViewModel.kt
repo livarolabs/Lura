@@ -130,6 +130,8 @@ class ReaderViewModel @Inject constructor(
                 try {
                     val content = epubParser.parseBook(book.filePath)
                     // Flatten content for pulse with metadata and sentence detection
+                    // OPTIMIZATION: Moved to lazy initialization when Pulse is activated
+                    /*
                     val words = mutableListOf<PulseWordInfo>()
                     var globalIdx = 0
                     var sentenceIdx = 0
@@ -163,7 +165,8 @@ class ReaderViewModel @Inject constructor(
                             }
                         }
                     }
-                    allPulseWords = words
+                    */
+                    allPulseWords = emptyList() // Will be populated lazily when Pulse is activated
                     
                     if (allPulseWords.isEmpty()) { 
                          println("ReaderViewModel: Parsed content is empty")
@@ -172,7 +175,7 @@ class ReaderViewModel @Inject constructor(
                 _uiState.value = ReaderUiState.Ready(
                     bookContent = content,
                     currentWordIndex = 0,
-                    initialProgress = book.progress
+                    initialProgress = book.progress / 100f  // Convert percentage (0-100) to fraction (0.0-1.0)
                 )
             } catch (e: Exception) {
                 _uiState.value = ReaderUiState.Error("Failed to parse book: ${e.message}")
@@ -182,6 +185,49 @@ class ReaderViewModel @Inject constructor(
         }
     }
 }
+
+
+    /**
+     * Lazy initialization of Pulse words - only called when Pulse is activated
+     */
+    private suspend fun initializePulseWords() {
+        val currentState = _uiState.value as? ReaderUiState.Ready ?: return
+        if (allPulseWords.isNotEmpty()) return
+        
+        android.util.Log.d("ReaderViewModel", "Initializing Pulse words...")
+        
+        val words = mutableListOf<PulseWordInfo>()
+        var globalIdx = 0
+        var sentenceIdx = 0
+        var currentSentence = StringBuilder()
+        
+        currentState.bookContent.chapters.forEachIndexed { chapterIdx, chapter ->
+            chapter.elements.forEachIndexed { elementIdx, element ->
+                if (element is com.lura.domain.engine.ReaderElement.Text) {
+                    val elementWords = element.content.split(Regex("\\s+")).filter { it.isNotEmpty() }
+                    elementWords.forEachIndexed { wordInElementIdx, wordText ->
+                        currentSentence.append(wordText).append(" ")
+                        words.add(
+                            PulseWordInfo(
+                                text = wordText,
+                                chapterIndex = chapterIdx,
+                                elementIndex = elementIdx,
+                                offsetInElement = wordInElementIdx,
+                                globalIndex = globalIdx++,
+                                sentenceIndex = sentenceIdx
+                            )
+                        )
+                        if (isSentenceEnd(wordText, currentSentence.toString())) {
+                            sentenceIdx++
+                            currentSentence.clear()
+                        }
+                    }
+                }
+            }
+        }
+        allPulseWords = words
+        android.util.Log.d("ReaderViewModel", "Pulse initialized: ${words.size} words")
+    }
 
     private fun observeHighlights() {
         highlightsJob?.cancel()
@@ -327,15 +373,21 @@ class ReaderViewModel @Inject constructor(
     private fun startPulse(startIndex: Int) {
         val currentState = _uiState.value as? ReaderUiState.Ready ?: return
         
-        if (allPulseWords.isEmpty()) {
-            println("Cannot start pulse: No words")
-            return
-        }
+        viewModelScope.launch {
+            // Lazy initialization
+            if (allPulseWords.isEmpty()) {
+                initializePulseWords()
+            }
+            
+            if (allPulseWords.isEmpty()) {
+                println("Cannot start pulse: No words")
+                return@launch
+            }
 
-        val safeStartIndex = startIndex.coerceIn(0, allPulseWords.size - 1)
-        val textToRead = allPulseWords.drop(safeStartIndex).joinToString(" ") { it.text }
+            val safeStartIndex = startIndex.coerceIn(0, allPulseWords.size - 1)
+            val textToRead = allPulseWords.drop(safeStartIndex).joinToString(" ") { it.text }
 
-        _uiState.value = currentState.copy(isPulseMode = true)
+            _uiState.value = currentState.copy(isPulseMode = true)
         
         pulseJob?.cancel()
         pulseJob = viewModelScope.launch {
@@ -373,6 +425,7 @@ class ReaderViewModel @Inject constructor(
                     }
                 }
             }
+        }
         }
     }
 
@@ -457,7 +510,9 @@ class ReaderViewModel @Inject constructor(
 
     fun saveProgress(progress: Float) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.updateProgress(bookId, progress)
+            // Convert 0-1 progress to 0-100 percentage
+            val progressPercentage = progress * 100f
+            repository.updateProgress(bookId, progressPercentage)
         }
     }
 }
@@ -531,5 +586,3 @@ sealed class ReaderUiState {
         val currentSentenceIndex: Int? = null  // Track which sentence is being pulsed
     ) : ReaderUiState()
 }
-
-

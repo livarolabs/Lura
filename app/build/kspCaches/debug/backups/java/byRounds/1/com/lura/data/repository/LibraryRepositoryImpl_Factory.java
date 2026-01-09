@@ -3,6 +3,7 @@ package com.lura.data.repository;
 import android.content.Context;
 import com.lura.data.db.dao.BookDao;
 import com.lura.data.db.dao.HighlightDao;
+import com.lura.data.engine.CoverExtractor;
 import com.lura.domain.engine.EpubParser;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.Factory;
@@ -34,28 +35,31 @@ public final class LibraryRepositoryImpl_Factory implements Factory<LibraryRepos
 
   private final Provider<EpubParser> epubParserProvider;
 
+  private final Provider<CoverExtractor> coverExtractorProvider;
+
   public LibraryRepositoryImpl_Factory(Provider<BookDao> bookDaoProvider,
       Provider<HighlightDao> highlightDaoProvider, Provider<Context> contextProvider,
-      Provider<EpubParser> epubParserProvider) {
+      Provider<EpubParser> epubParserProvider, Provider<CoverExtractor> coverExtractorProvider) {
     this.bookDaoProvider = bookDaoProvider;
     this.highlightDaoProvider = highlightDaoProvider;
     this.contextProvider = contextProvider;
     this.epubParserProvider = epubParserProvider;
+    this.coverExtractorProvider = coverExtractorProvider;
   }
 
   @Override
   public LibraryRepositoryImpl get() {
-    return newInstance(bookDaoProvider.get(), highlightDaoProvider.get(), contextProvider.get(), epubParserProvider.get());
+    return newInstance(bookDaoProvider.get(), highlightDaoProvider.get(), contextProvider.get(), epubParserProvider.get(), coverExtractorProvider.get());
   }
 
   public static LibraryRepositoryImpl_Factory create(Provider<BookDao> bookDaoProvider,
       Provider<HighlightDao> highlightDaoProvider, Provider<Context> contextProvider,
-      Provider<EpubParser> epubParserProvider) {
-    return new LibraryRepositoryImpl_Factory(bookDaoProvider, highlightDaoProvider, contextProvider, epubParserProvider);
+      Provider<EpubParser> epubParserProvider, Provider<CoverExtractor> coverExtractorProvider) {
+    return new LibraryRepositoryImpl_Factory(bookDaoProvider, highlightDaoProvider, contextProvider, epubParserProvider, coverExtractorProvider);
   }
 
   public static LibraryRepositoryImpl newInstance(BookDao bookDao, HighlightDao highlightDao,
-      Context context, EpubParser epubParser) {
-    return new LibraryRepositoryImpl(bookDao, highlightDao, context, epubParser);
+      Context context, EpubParser epubParser, CoverExtractor coverExtractor) {
+    return new LibraryRepositoryImpl(bookDao, highlightDao, context, epubParser, coverExtractor);
   }
 }

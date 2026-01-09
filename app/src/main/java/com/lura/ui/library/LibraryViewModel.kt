@@ -18,6 +18,24 @@ class LibraryViewModel @Inject constructor(
     private val repository: LibraryRepository
 ) : ViewModel() {
 
+    val books: StateFlow<List<Book>> = repository.getLibraryBooks()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+    init {
+        // Extract covers for existing books that don't have them
+        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            try {
+                (repository as? com.lura.data.repository.LibraryRepositoryImpl)?.extractMissingCovers()
+            } catch (e: Exception) {
+                android.util.Log.e("LibraryViewModel", "Error extracting missing covers", e)
+            }
+        }
+    }
+
     init {
         viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             // Auto-import default book if library is empty
@@ -26,13 +44,6 @@ class LibraryViewModel @Inject constructor(
             }
         }
     }
-
-    val books: StateFlow<List<Book>> = repository.getLibraryBooks()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
 
     private val _uiEvent = kotlinx.coroutines.channels.Channel<LibraryEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()

@@ -27,6 +27,7 @@ import com.lura.ui.theme.LuraGhostWhite
 import com.lura.ui.theme.LuraIndigo
 import com.lura.ui.theme.LuraObsidian
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LibraryScreen(
     onBookClick: (String) -> Unit,

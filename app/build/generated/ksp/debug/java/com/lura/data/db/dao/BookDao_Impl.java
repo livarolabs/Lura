@@ -152,7 +152,7 @@ public final class BookDao_Impl implements BookDao {
       @Override
       @NonNull
       public String createQuery() {
-        final String _query = "UPDATE books SET progress = ? WHERE id = ?";
+        final String _query = "UPDATE books SET progress = ?, progressPercentage = ? WHERE id = ?";
         return _query;
       }
     };
@@ -205,6 +205,8 @@ public final class BookDao_Impl implements BookDao {
         int _argIndex = 1;
         _stmt.bindDouble(_argIndex, progress);
         _argIndex = 2;
+        _stmt.bindDouble(_argIndex, progress);
+        _argIndex = 3;
         _stmt.bindString(_argIndex, id);
         try {
           __db.beginTransaction();

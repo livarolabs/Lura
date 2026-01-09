@@ -18,7 +18,7 @@ interface BookDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBook(book: BookEntity)
 
-    @Query("UPDATE books SET progress = :progress WHERE id = :id")
+    @Query("UPDATE books SET progress = :progress, progressPercentage = :progress WHERE id = :id")
     suspend fun updateProgress(id: String, progress: Float)
 
     @androidx.room.Delete

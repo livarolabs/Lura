@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.lura.data.db.AppDatabase;
 import com.lura.data.db.dao.BookDao;
 import com.lura.data.db.dao.HighlightDao;
+import com.lura.data.engine.CoverExtractor;
 import com.lura.data.engine.RealEpubParser;
 import com.lura.data.repository.LibraryRepositoryImpl;
 import com.lura.di.AppModule_ProvideAppDatabaseFactory;
@@ -408,15 +409,15 @@ public final class DaggerLuraApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_lura_ui_reader_ReaderViewModel = "com.lura.ui.reader.ReaderViewModel";
-
       static String com_lura_ui_library_LibraryViewModel = "com.lura.ui.library.LibraryViewModel";
 
-      @KeepFieldType
-      ReaderViewModel com_lura_ui_reader_ReaderViewModel2;
+      static String com_lura_ui_reader_ReaderViewModel = "com.lura.ui.reader.ReaderViewModel";
 
       @KeepFieldType
       LibraryViewModel com_lura_ui_library_LibraryViewModel2;
+
+      @KeepFieldType
+      ReaderViewModel com_lura_ui_reader_ReaderViewModel2;
     }
   }
 
@@ -462,15 +463,15 @@ public final class DaggerLuraApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_lura_ui_library_LibraryViewModel = "com.lura.ui.library.LibraryViewModel";
-
       static String com_lura_ui_reader_ReaderViewModel = "com.lura.ui.reader.ReaderViewModel";
 
-      @KeepFieldType
-      LibraryViewModel com_lura_ui_library_LibraryViewModel2;
+      static String com_lura_ui_library_LibraryViewModel = "com.lura.ui.library.LibraryViewModel";
 
       @KeepFieldType
       ReaderViewModel com_lura_ui_reader_ReaderViewModel2;
+
+      @KeepFieldType
+      LibraryViewModel com_lura_ui_library_LibraryViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {
@@ -602,6 +603,10 @@ public final class DaggerLuraApp_HiltComponents_SingletonC {
 
     }
 
+    private CoverExtractor coverExtractor() {
+      return new CoverExtractor(ApplicationContextModule_ProvideContextFactory.provideContext(applicationContextModule));
+    }
+
     @SuppressWarnings("unchecked")
     private void initialize(final ApplicationContextModule applicationContextModuleParam) {
       this.hardwareKeyManagerProvider = DoubleCheck.provider(new SwitchingProvider<HardwareKeyManager>(singletonCImpl, 0));
@@ -651,7 +656,7 @@ public final class DaggerLuraApp_HiltComponents_SingletonC {
           return (T) new HardwareKeyManager();
 
           case 1: // com.lura.data.repository.LibraryRepositoryImpl 
-          return (T) new LibraryRepositoryImpl(singletonCImpl.provideBookDaoProvider.get(), singletonCImpl.provideHighlightDaoProvider.get(), ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule), singletonCImpl.bindEpubParserProvider.get());
+          return (T) new LibraryRepositoryImpl(singletonCImpl.provideBookDaoProvider.get(), singletonCImpl.provideHighlightDaoProvider.get(), ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule), singletonCImpl.bindEpubParserProvider.get(), singletonCImpl.coverExtractor());
 
           case 2: // com.lura.data.db.dao.BookDao 
           return (T) AppModule_ProvideBookDaoFactory.provideBookDao(singletonCImpl.provideAppDatabaseProvider.get());
